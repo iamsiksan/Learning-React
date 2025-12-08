@@ -2,13 +2,15 @@ import React, { useContext, useEffect,useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { ShopContext } from '../context/ShopContext';
 import { assets } from '../assets/assets';
+import RelatedProducts from '../components/RelatedProducts';
 
 function Product() {
 
   const {productId} = useParams();
-  const {products} = useContext(ShopContext)
+  const {products,currency, addToCart} = useContext(ShopContext)
   const [productData, setProductData] = useState(false)
   const [image, setImage] = useState('')
+  const [size, setSize] = useState('')
 
   const fetchProductData = async ()=>{
 
@@ -35,7 +37,7 @@ function Product() {
 
 
   return productData ? (
-    <div className='border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100'>
+    <div className='border-t-2 border-gray-200 pt-10 transition-opacity ease-in duration-500 opacity-100'>
       {/* products data */}
       <div className='flex gap-12 flex-col sm:flex-row'>
 
@@ -51,7 +53,7 @@ function Product() {
 
           </div>
 
-          <div className='w-full sm:w-[80%]'>
+          <div className='w-full sm:w-[80%] '>
             <img src={image} className='w-full h-auto' alt="" />
 
           </div>
@@ -71,9 +73,53 @@ function Product() {
 
           </div>
 
+          <p className='mt-5 text-3xl font-medium'>{currency}{productData.price}</p>
+          <p className='mt-5 text-gray-500 md:w-4/5'>{productData.description}</p>
+          <div className='flex flex-col gap-4 my-8'>
+            <p>Select Size</p>
+            <div className='flex gap-2'>
+              {
+                productData.sizes.map((item,index)=>(
+                  <button onClick={()=>setSize(item)}  className={`border border-gray-300 py-2 px-4 bg-gray-100 cursor-pointer ${item == size ? 'border-gray-600': ''}`} key={index}>{item}</button>
+                ))
+              }
+
+            </div>
+
+          </div>
+
+          <button onClick={()=>addToCart(productData._id,size)} className='bg-black text-white px-8 py-3 text-sm active:bg-gray-700 cursor-pointer'>ADD TO CART</button>
+          <hr className='w-4/5 mt-8 border-gray-300' />
+          <div className='text-sm text-gray-500 mt-5 flex flex-col gap-1'>
+            <p>100% original product.</p>
+            <p>Cash on delivery is available on this product.</p>
+            <p>Easy return and exchange policy within 7 days.</p>
+
+          </div>
         </div>
 
       </div>
+
+      {/* Description and Reviews */}
+
+      <div className='mt-20'>
+        <div className='flex'>
+          <b className='border border-gray-300 cursor-pointer px-5 py-3 text-sm'>Description</b>
+          <p className='border border-gray-300 cursor-pointer px-5 py-3 text-sm'>Reviews (56)</p>
+
+        </div>
+        <div className='flex flex-col gap-4 border border-gray-300 px-6 py-6 text-sm text-gray-500'>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis aspernatur ullam delectus repellat totam laudantium aliquam sequi, minus inventore reprehenderit odio incidunt iusto id quidem repudiandae ut, nostrum quas. Maiores.</p>
+          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio dolorem eum perferendis ipsam iure tenetur, inventore amet eaque reiciendis quam in, ea at. Ratione iusto beatae fuga! Non, enim pariatur?</p>
+
+
+        </div>
+
+      </div>
+
+      {/* Related Products */}
+
+      <RelatedProducts category={productData.category} subCategory={productData.subCategory} />
 
     </div>
   ): <div className='opacity-0'></div>
