@@ -16,7 +16,7 @@ function Hero() {
             </div>
             <h1 className='text-3xl sm:py-3 lg:text-5xl leading-relaxed'>LATEST ARRIVALS</h1>
             <div className='flex items-center gap-2'>
-              <a role='button' className=' bg-gray-600 text-white  rounded-xl px-3 py-2 font-normal cursor-pointer text-sm sm:text-base'>SHOP NOW</a>
+              <a role='button' href='/login' className=' bg-gray-600 text-white  rounded-xl px-3 py-2 font-normal cursor-pointer text-sm sm:text-base'>SHOP NOW</a>
               <p className='w-8 md:w-11 h-0.5 bg-[#414141]'></p>
 
             </div>

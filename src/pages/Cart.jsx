@@ -6,7 +6,7 @@ import CartTotal from '../components/CartTotal'
 
 function Cart() {
 
-  const {products,currency,cartItems,updateQuantity} = useContext(ShopContext)
+  const {products,currency,cartItems,updateQuantity,navigate} = useContext(ShopContext)
   const [cartData, setCartData] = useState([])
 
 
@@ -78,6 +78,10 @@ function Cart() {
       <div className='flex justify-end my-20'>
         <div className='w-full sm:w-[450px]'>
           <CartTotal />
+          <div className='w-full text-end'>
+            <button onClick={()=>navigate('/place-order')} className='bg-black text-white p-3 mt-3 cursor-pointer'>PROCEED TO CHECKOUT</button>
+
+          </div>
 
         </div>
 
